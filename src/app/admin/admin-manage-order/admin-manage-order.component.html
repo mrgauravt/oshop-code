@@ -1,0 +1,42 @@
+<div *ngIf="order$['datePlaced']">
+  <h1>Order Summary</h1>
+  <h5>Order Date: {{ order$.datePlaced | date }}</h5>
+  <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Cost Per Product</th>
+        <th>Price</th>
+      </tr>
+    </thead> 
+    <tbody>
+      <tr *ngFor="let item of order$.items">
+        <td>{{ item.quantity }} x {{ item.product.title }}</td>
+        <td>{{ item.totalPrice/item.quantity | currency:'USD':'symbol' }}</td>
+        <td>{{ item.totalPrice | currency:'USD':'symbol' }}</td>
+      </tr>
+      <tr>
+        <td class="font-weight-bold">Total</td>
+        <td></td>
+        <td class="font-weight-bold">{{ order$.totalPrice | currency:'USD':'symbol' }}</td>
+      </tr>
+    </tbody> 
+  </table>
+  <hr>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Shipping Address</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <span class="font-weight-bold">Name: </span> {{ order$.shipping.name }}
+        </li>
+        <li class="list-group-item">
+          <span class="font-weight-bold">Address: </span>
+          {{ order$.shipping.addressLine1 }}, {{ order$.shipping.addressLine2 }}, {{ order$.shipping.city }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
